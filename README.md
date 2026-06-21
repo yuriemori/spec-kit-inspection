@@ -42,7 +42,7 @@ uv --version
 最新リリースタグを指定してインストールします。
 
 ```bash
-uv tool install specify-cli --from git+https://github.com/github/spec-kit.git@vX.Y.Z
+uv tool install specify-cli --from git+https://github.com/github/spec-kit.git@v0.11.3
 ```
 
 インストール後、動作確認します。
@@ -93,6 +93,28 @@ find .specify -maxdepth 3 -type f
 ```
 
 GitHub Copilot 統合の場合は、Copilot 用の instructions や command 関連ファイルも作成されます。
+
+### 生成されるフォルダの役割（`specify init . --integration copilot`）
+
+画像にある主なフォルダの役割は次の通りです。
+
+| パス | 役割 |
+| --- | --- |
+| `.github/agents/` | Copilot のサブエージェント定義。`/speckit.specify` など各コマンドで呼ばれるエージェントの振る舞いを定義します。 |
+| `.github/prompts/` | 各 Speckit コマンドのプロンプトテンプレート。エージェントに渡す指示文の土台です。 |
+| `.specify/extensions/` | Spec Kit 拡張機能の実体。例: `agent-context` 拡張の設定・コマンド・スクリプトを保持します。 |
+| `.specify/integrations/` | 連携先（Copilot など）ごとのマニフェスト。どのファイルを導入したかを記録します。 |
+| `.specify/memory/` | プロジェクトの長期メモ領域。`constitution.md` など、方針や原則を保持します。 |
+| `.specify/scripts/` | 初期化後の補助シェルスクリプト群。前提チェック、feature 作成、plan/tasks 準備を行います。 |
+| `.specify/templates/` | `spec.md`、`plan.md`、`tasks.md` などのテンプレート。生成ドキュメントのひな形です。 |
+| `.specify/workflows/` | `specify → plan → tasks → implement` のような一連ワークフロー定義です。 |
+| `.vscode/` | VS Code 用設定。Copilot の prompt 推奨表示や、`.specify/scripts/` 実行の自動承認などを設定します。 |
+
+補足として、フォルダではありませんが次のファイルも初期化状態を管理します。
+
+- `.specify/extensions.yml`: 有効化した拡張とフック設定
+- `.specify/init-options.json`: `specify init` 実行時のオプション記録
+- `.specify/integration.json`: 連携先情報（既定 integration など）
 
 ---
 
