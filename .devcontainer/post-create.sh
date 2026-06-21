@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-python -m pip install --user uv
+python -m pip install --user uv==0.11.23
 
 path_line='export PATH="$HOME/.local/bin:$PATH"'
 for profile in "$HOME/.bashrc" "$HOME/.zshrc"; do
@@ -11,4 +11,7 @@ for profile in "$HOME/.bashrc" "$HOME/.zshrc"; do
 done
 
 export PATH="$HOME/.local/bin:$PATH"
-uv tool install specify-cli --force --from git+https://github.com/github/spec-kit.git
+
+if ! command -v specify >/dev/null 2>&1; then
+  uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
+fi
