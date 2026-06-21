@@ -1,0 +1,31 @@
+{
+  "name": "spec-kit-demo",
+  "image": "mcr.microsoft.com/devcontainers/python:3.13-trixie",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "installOhMyZsh": true,
+      "upgradePackages": true
+    },
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest",
+      "ppa": true
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    }
+  },
+  "forwardPorts": [
+    8080
+  ],
+  "postCreateCommand": "bash -lc 'command -v uv >/dev/null 2>&1 || (python -m pip install --user uv && export PATH=\"$HOME/.local/bin:$PATH\"); uv tool install specify-cli --force --from git+https://github.com/github/spec-kit.git'",
+  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "GitHub.copilot",
+        "GitHub.copilot-chat"
+      ]
+    }
+  }
+}
