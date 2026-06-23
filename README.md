@@ -4,6 +4,15 @@
 
 このガイドは、Spec Kit の基本的な動きを最短で確認するための手順です。
 
+## 関連ガイド
+
+用途に応じて、以下のガイドも参照してください。
+
+- [参考リンク集](references.md)
+- [SDD ガイド](sdd-guide.md)
+- [Spec Kit コマンドガイド](spec-kit-command-guide.md)
+- [Spec Kit ガイド](spec-kit-guide.md)
+
 確認する流れは次の通りです。
 
 1. `specify` CLI をインストールする
