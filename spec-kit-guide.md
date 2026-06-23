@@ -1,3 +1,6 @@
+# Spec Kitのフロー
+
+
 # Spec Kit Agent Guide
 
 `specify init --integration copilot` で生成される `.github/agents` 配下のエージェント一覧です。
@@ -27,3 +30,28 @@
 7. `speckit.implement`
 8. `speckit.converge`（必要時）
 9. `speckit.taskstoissues`（Issue 管理したい場合）
+
+## GitHub Spec Kit Workflow（画像ベース解説）
+
+画像のワークフローは、中央の Constitution（設計原則・開発標準）を軸に、周囲の 6 つのコマンドを順に回す「反復型サイクル」として表現されています。
+
+| ステップ | コマンド | 主担当（画像の文脈） | 目的 | 主な出力 |
+|---|---|---|---|---|
+| 1 | `/speckit:specify` | PM | 何を作るか（ユーザー価値・機能要求）を定義する | `spec.md` |
+| 2 | `/speckit:clarify` | PM + Architect | 曖昧さ・未確定事項を解消し、仕様を明確化する | 更新された `spec.md` |
+| 3 | `/speckit:plan` | Architect | どう作るか（技術方針・構成・実装戦略）を設計する | `plan.md`、`research.md` など |
+| 4 | `/speckit:tasks` | SWE + Delivery Lead | 実装可能な単位に分割し、依存順を整理する | `tasks.md` |
+| 5 | `/speckit:analyze` | Architect + PM + SWEs | spec/plan/tasks の整合性や不足を検査し、改善点を出す | 改善提案、必要なら成果物更新 |
+| 6 | `/speckit:implement` | SWEs + Coding Agents | タスクに沿って実装・テストを進める | コード、テスト、実装差分 |
+
+### 中央にある Constitution の意味
+
+- Constitution は「このプロジェクトで守る設計原則・品質基準・開発規約」の共通土台です。
+- 6 ステップすべての判断基準として機能し、仕様から実装までの一貫性を保ちます。
+- 迷ったときは Constitution に立ち返ることで、チームと AI の判断を揃えられます。
+
+### 実運用のポイント
+
+- 一方向の直線工程ではなく、`analyze -> clarify/plan/tasks` へ戻る前提で回すと品質が上がります。
+- `implement` 後は、テスト結果や差分レビューを踏まえて必要なら仕様・計画へフィードバックします。
+- 小さな機能単位でこのサイクルを回すと、手戻りを抑えながら安定して前進できます。
